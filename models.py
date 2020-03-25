@@ -3,15 +3,15 @@ import matplotlib.pyplot as plt
 from pylab import *
 import os
 import sys
-from keras_contrib.applications import densenet
-from keras.models import Model
-from keras.regularizers import l2
-from keras.layers import *
-from keras.engine import Layer
-from keras.applications.vgg16 import *
-from keras.models import *
-from keras.applications.imagenet_utils import _obtain_input_shape
-import keras.backend as K
+# from keras_contrib.applications import densenet
+from tensorflow.keras.models import Model
+from tensorflow.keras.regularizers import l2
+from tensorflow.keras.layers import *
+# from tensorflow.keras.engine import Layer
+from tensorflow.keras.applications.vgg16 import *
+from tensorflow.keras.models import *
+# from tensorflow.keras.applications.imagenet_utils import _obtain_input_shape
+import tensorflow.keras.backend as K
 import tensorflow as tf
 
 from utils.get_weights_path import *
@@ -36,7 +36,6 @@ def top(x, input_shape, classes, activation, weight_decay):
         x = Reshape((row * col * classes,))(x)
 
     return x
-
 
 def FCN_Vgg16_32s(input_shape=None, weight_decay=0., batch_momentum=0.9, batch_shape=None, classes=21):
     if batch_shape:
@@ -85,8 +84,8 @@ def FCN_Vgg16_32s(input_shape=None, weight_decay=0., batch_momentum=0.9, batch_s
 
     model = Model(img_input, x)
 
-    weights_path = os.path.expanduser(os.path.join('~', '.keras/models/fcn_vgg16_weights_tf_dim_ordering_tf_kernels.h5'))
-    model.load_weights(weights_path, by_name=True)
+    # weights_path = os.path.expanduser(os.path.join('~', '.keras/models/fcn_vgg16_weights_tf_dim_ordering_tf_kernels.h5'))
+    # model.load_weights(weights_path, by_name=True)
     return model
 
 
@@ -137,8 +136,8 @@ def AtrousFCN_Vgg16_16s(input_shape=None, weight_decay=0., batch_momentum=0.9, b
 
     model = Model(img_input, x)
 
-    weights_path = os.path.expanduser(os.path.join('~', '.keras/models/fcn_vgg16_weights_tf_dim_ordering_tf_kernels.h5'))
-    model.load_weights(weights_path, by_name=True)
+    # weights_path = os.path.expanduser(os.path.join('~', '.keras/models/fcn_vgg16_weights_tf_dim_ordering_tf_kernels.h5'))
+    # model.load_weights(weights_path, by_name=True)
     return model
 
 
@@ -182,8 +181,8 @@ def FCN_Resnet50_32s(input_shape = None, weight_decay=0., batch_momentum=0.9, ba
     x = BilinearUpSampling2D(size=(32, 32))(x)
 
     model = Model(img_input, x)
-    weights_path = os.path.expanduser(os.path.join('~', '.keras/models/fcn_resnet50_weights_tf_dim_ordering_tf_kernels.h5'))
-    model.load_weights(weights_path, by_name=True)
+    # weights_path = os.path.expanduser(os.path.join('~', '.keras/models/fcn_resnet50_weights_tf_dim_ordering_tf_kernels.h5'))
+    # model.load_weights(weights_path, by_name=True)
     return model
 
 
@@ -227,101 +226,101 @@ def AtrousFCN_Resnet50_16s(input_shape = None, weight_decay=0., batch_momentum=0
     x = BilinearUpSampling2D(target_size=tuple(image_size))(x)
 
     model = Model(img_input, x)
-    weights_path = os.path.expanduser(os.path.join('~', '.keras/models/fcn_resnet50_weights_tf_dim_ordering_tf_kernels.h5'))
-    model.load_weights(weights_path, by_name=True)
+    # weights_path = os.path.expanduser(os.path.join('~', '.keras/models/fcn_resnet50_weights_tf_dim_ordering_tf_kernels.h5'))
+    # model.load_weights(weights_path, by_name=True)
     return model
 
 
-def Atrous_DenseNet(input_shape=None, weight_decay=1E-4,
-                    batch_momentum=0.9, batch_shape=None, classes=21,
-                    include_top=False, activation='sigmoid'):
-    # TODO(ahundt) pass the parameters but use defaults for now
-    if include_top is True:
-        # TODO(ahundt) Softmax is pre-applied, so need different train, inference, evaluate.
-        # TODO(ahundt) for multi-label try per class sigmoid top as follows:
-        # x = Reshape((row * col * classes))(x)
-        # x = Activation('sigmoid')(x)
-        # x = Reshape((row, col, classes))(x)
-        return densenet.DenseNet(depth=None, nb_dense_block=3, growth_rate=32,
-                                 nb_filter=-1, nb_layers_per_block=[6, 12, 24, 16],
-                                 bottleneck=True, reduction=0.5, dropout_rate=0.2,
-                                 weight_decay=1E-4,
-                                 include_top=True, top='segmentation',
-                                 weights=None, input_tensor=None,
-                                 input_shape=input_shape,
-                                 classes=classes, transition_dilation_rate=2,
-                                 transition_kernel_size=(1, 1),
-                                 transition_pooling=None)
+# def Atrous_DenseNet(input_shape=None, weight_decay=1E-4,
+#                     batch_momentum=0.9, batch_shape=None, classes=21,
+#                     include_top=False, activation='sigmoid'):
+#     # TODO(ahundt) pass the parameters but use defaults for now
+#     if include_top is True:
+#         # TODO(ahundt) Softmax is pre-applied, so need different train, inference, evaluate.
+#         # TODO(ahundt) for multi-label try per class sigmoid top as follows:
+#         # x = Reshape((row * col * classes))(x)
+#         # x = Activation('sigmoid')(x)
+#         # x = Reshape((row, col, classes))(x)
+#         return densenet.DenseNet(depth=None, nb_dense_block=3, growth_rate=32,
+#                                  nb_filter=-1, nb_layers_per_block=[6, 12, 24, 16],
+#                                  bottleneck=True, reduction=0.5, dropout_rate=0.2,
+#                                  weight_decay=1E-4,
+#                                  include_top=True, top='segmentation',
+#                                  weights=None, input_tensor=None,
+#                                  input_shape=input_shape,
+#                                  classes=classes, transition_dilation_rate=2,
+#                                  transition_kernel_size=(1, 1),
+#                                  transition_pooling=None)
 
-    # if batch_shape:
-    #     img_input = Input(batch_shape=batch_shape)
-    #     image_size = batch_shape[1:3]
-    # else:
-    #     img_input = Input(shape=input_shape)
-    #     image_size = input_shape[0:2]
+#     # if batch_shape:
+#     #     img_input = Input(batch_shape=batch_shape)
+#     #     image_size = batch_shape[1:3]
+#     # else:
+#     #     img_input = Input(shape=input_shape)
+#     #     image_size = input_shape[0:2]
 
-    input_shape = _obtain_input_shape(input_shape,
-                                      default_size=32,
-                                      min_size=16,
-                                      data_format=K.image_data_format(),
-                                      include_top=False)
-    img_input = Input(shape=input_shape)
+#     input_shape = _obtain_input_shape(input_shape,
+#                                       default_size=32,
+#                                       min_size=16,
+#                                       data_format=K.image_data_format(),
+#                                       include_top=False)
+#     img_input = Input(shape=input_shape)
 
-    x = densenet.__create_dense_net(classes, img_input,
-                                    depth=None, nb_dense_block=3, growth_rate=32,
-                                    nb_filter=-1, nb_layers_per_block=[6, 12, 24, 16],
-                                    bottleneck=True, reduction=0.5, dropout_rate=0.2,
-                                    weight_decay=1E-4, top='segmentation',
-                                    input_shape=input_shape,
-                                    transition_dilation_rate=2,
-                                    transition_kernel_size=(1, 1),
-                                    transition_pooling=None,
-                                    include_top=include_top)
+#     x = densenet.__create_dense_net(classes, img_input,
+#                                     depth=None, nb_dense_block=3, growth_rate=32,
+#                                     nb_filter=-1, nb_layers_per_block=[6, 12, 24, 16],
+#                                     bottleneck=True, reduction=0.5, dropout_rate=0.2,
+#                                     weight_decay=1E-4, top='segmentation',
+#                                     input_shape=input_shape,
+#                                     transition_dilation_rate=2,
+#                                     transition_kernel_size=(1, 1),
+#                                     transition_pooling=None,
+#                                     include_top=include_top)
 
-    x = top(x, input_shape, classes, activation, weight_decay)
+#     x = top(x, input_shape, classes, activation, weight_decay)
 
-    model = Model(img_input, x, name='Atrous_DenseNet')
-    # TODO(ahundt) add weight loading
-    return model
+#     model = Model(img_input, x, name='Atrous_DenseNet')
+#     # TODO(ahundt) add weight loading
+#     return model
 
 
-def DenseNet_FCN(input_shape=None, weight_decay=1E-4,
-                 batch_momentum=0.9, batch_shape=None, classes=21,
-                 include_top=False, activation='sigmoid'):
-    if include_top is True:
-        # TODO(ahundt) Softmax is pre-applied, so need different train, inference, evaluate.
-        # TODO(ahundt) for multi-label try per class sigmoid top as follows:
-        # x = Reshape((row * col * classes))(x)
-        # x = Activation('sigmoid')(x)
-        # x = Reshape((row, col, classes))(x)
-        return densenet.DenseNetFCN(input_shape=input_shape,
-                                    weights=None, classes=classes,
-                                    nb_layers_per_block=[4, 5, 7, 10, 12, 15],
-                                    growth_rate=16,
-                                    dropout_rate=0.2)
+# def DenseNet_FCN(input_shape=None, weight_decay=1E-4,
+#                  batch_momentum=0.9, batch_shape=None, classes=21,
+#                  include_top=False, activation='sigmoid'):
+#     if include_top is True:
+#         # TODO(ahundt) Softmax is pre-applied, so need different train, inference, evaluate.
+#         # TODO(ahundt) for multi-label try per class sigmoid top as follows:
+#         # x = Reshape((row * col * classes))(x)
+#         # x = Activation('sigmoid')(x)
+#         # x = Reshape((row, col, classes))(x)
+#         return densenet.DenseNetFCN(input_shape=input_shape,
+#                                     weights=None, classes=classes,
+#                                     nb_layers_per_block=[4, 5, 7, 10, 12, 15],
+#                                     growth_rate=16,
+#                                     dropout_rate=0.2)
 
-    # if batch_shape:
-    #     img_input = Input(batch_shape=batch_shape)
-    #     image_size = batch_shape[1:3]
-    # else:
-    #     img_input = Input(shape=input_shape)
-    #     image_size = input_shape[0:2]
+#     # if batch_shape:
+#     #     img_input = Input(batch_shape=batch_shape)
+#     #     image_size = batch_shape[1:3]
+#     # else:
+#     #     img_input = Input(shape=input_shape)
+#     #     image_size = input_shape[0:2]
 
-    input_shape = _obtain_input_shape(input_shape,
-                                      default_size=32,
-                                      min_size=16,
-                                      data_format=K.image_data_format(),
-                                      include_top=False)
-    img_input = Input(shape=input_shape)
+#     input_shape = _obtain_input_shape(input_shape,
+#                                       default_size=32,
+#                                       min_size=16,
+#                                       data_format=K.image_data_format(),
+#                                       include_top=False)
+#     img_input = Input(shape=input_shape)
 
-    x = densenet.__create_fcn_dense_net(classes, img_input,
-                                        input_shape=input_shape,
-                                        nb_layers_per_block=[4, 5, 7, 10, 12, 15],
-                                        growth_rate=16,
-                                        dropout_rate=0.2,
-                                        include_top=include_top)
+#     x = densenet.__create_fcn_dense_net(classes, img_input,
+#                                         input_shape=input_shape,
+#                                         nb_layers_per_block=[4, 5, 7, 10, 12, 15],
+#                                         growth_rate=16,
+#                                         dropout_rate=0.2,
+#                                         include_top=include_top)
 
-    x = top(x, input_shape, classes, activation, weight_decay)
-    # TODO(ahundt) add weight loading
-    model = Model(img_input, x, name='DenseNet_FCN')
-    return model
+#     x = top(x, input_shape, classes, activation, weight_decay)
+#     # TODO(ahundt) add weight loading
+#     model = Model(img_input, x, name='DenseNet_FCN')
+#     return model

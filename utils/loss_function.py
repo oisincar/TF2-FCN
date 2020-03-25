@@ -1,7 +1,9 @@
-from keras.objectives import *
-from keras.metrics import binary_crossentropy
-import keras.backend as K
+from tensorflow.keras.losses import * # was 'keras.objectives'
+from tensorflow.keras.metrics import binary_crossentropy
+import tensorflow.keras.backend as K
 import tensorflow as tf
+
+import tensorflow.compat.v1 as tfc
 
 
 # Softmax cross-entropy loss function for pascal voc segmentation
@@ -11,7 +13,7 @@ def softmax_sparse_crossentropy_ignoring_last_label(y_true, y_pred):
     y_pred = K.reshape(y_pred, (-1, K.int_shape(y_pred)[-1]))
     log_softmax = tf.nn.log_softmax(y_pred)
 
-    y_true = K.one_hot(tf.to_int32(K.flatten(y_true)), K.int_shape(y_pred)[-1]+1)
+    y_true = K.one_hot(tfc.to_int32(K.flatten(y_true)), K.int_shape(y_pred)[-1]+1)
     unpacked = tf.unstack(y_true, axis=-1)
     y_true = tf.stack(unpacked[:-1], axis=-1)
 

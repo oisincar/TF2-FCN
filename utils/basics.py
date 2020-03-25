@@ -1,6 +1,6 @@
-from keras.models import Model
-from keras.layers import *
-from keras.regularizers import l2
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import *
+from tensorflow.keras.regularizers import l2
 import tensorflow as tf
 
 def conv_relu(nb_filter, nb_row, nb_col, subsample=(1, 1), border_mode='same', bias = True, w_decay = 0.01):

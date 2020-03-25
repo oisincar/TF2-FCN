@@ -1,6 +1,7 @@
-from keras.layers import *
-from keras.layers.merge import Add
-from keras.regularizers import l2
+from tensorflow.keras import backend as K
+from tensorflow.keras.layers import *
+# from tensorflow.keras.layers import Add
+from tensorflow.keras.regularizers import l2
 
 # The original help functions from keras does not have weight regularizers, so I modified them.
 # Also, I changed these two functions into functional style

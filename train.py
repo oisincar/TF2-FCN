@@ -4,12 +4,12 @@ from pylab import *
 import os
 import sys
 import pickle
-from keras.optimizers import SGD, Adam, Nadam
-from keras.callbacks import *
-from keras.objectives import *
-from keras.metrics import binary_accuracy
-from keras.models import load_model
-import keras.backend as K
+from tensorflow.keras.optimizers import SGD, Adam, Nadam
+from tensorflow.keras.callbacks import *
+# from tensorflow.keras.losses import *
+from tensorflow.keras.metrics import binary_accuracy
+from tensorflow.keras.models import load_model
+import tensorflow.keras.backend as K
 #import keras.utils.visualize_util as vis_util
 
 from models import *
@@ -222,9 +222,9 @@ if __name__ == '__main__':
     # class_weight[0] = 0.1
     class_weight = None
 
-    config = tf.ConfigProto(gpu_options=tf.GPUOptions(allow_growth=True))
-    session = tf.Session(config=config)
-    K.set_session(session)
+    # config = tf.ConfigProto(gpu_options=tf.GPUOptions(allow_growth=True))
+    # session = tf.Session(config=config)
+    # K.set_session(session)
     train(batch_size, epochs, lr_base, lr_power, weight_decay, classes, model_name, train_file_path, val_file_path,
           data_dir, label_dir, target_size=target_size, batchnorm_momentum=batchnorm_momentum, resume_training=resume_training,
           class_weight=class_weight, loss_fn=loss_fn, metrics=metrics, loss_shape=loss_shape, data_suffix=data_suffix,

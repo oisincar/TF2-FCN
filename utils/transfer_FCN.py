@@ -3,14 +3,15 @@ import matplotlib.pyplot as plt
 from pylab import *
 import os
 import sys
-from keras.models import Model
-from keras.regularizers import l2
-from keras.layers import *
-from keras.models import model_from_json
-from keras.utils import np_utils
-from keras.applications.vgg16 import *
-from keras.applications.resnet50 import *
-import keras.backend as K
+import tensorflow as tf
+from tensorflow.keras.models import Model
+from tensorflow.keras.regularizers import l2
+from tensorflow.keras.layers import *
+from tensorflow.keras.models import model_from_json
+# from tensorflow.keras.utils import np_utils
+from tensorflow.keras.applications.vgg16 import *
+from tensorflow.keras.applications.resnet50 import *
+# import keras.backend as K
 import tensorflow as tf
 
 from get_weights_path import *

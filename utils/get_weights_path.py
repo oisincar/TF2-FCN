@@ -1,4 +1,4 @@
-from keras.utils.data_utils import get_file
+from tensorflow.keras.utils import get_file
 
 def get_weights_path_vgg16():
     TF_WEIGHTS_PATH = 'https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg16_weights_tf_dim_ordering_tf_kernels.h5'
