@@ -113,19 +113,25 @@ def train(batch_size, epochs, lr_base, lr_power, weight_decay, classes,
     # ################### checkpoint saver#######################
     checkpoint = ModelCheckpoint(filepath=os.path.join(save_path, 'checkpoint_weights.hdf5'), save_weights_only=True)#.{epoch:d}
     callbacks.append(checkpoint)
+
+
+
     # set data generator and train
-    train_datagen = SegDataGenerator(zoom_range=[0.5, 2.0],
-                                     zoom_maintain_shape=True,
-                                     crop_mode='random',
-                                     crop_size=target_size,
-                                     # pad_size=(505, 505),
-                                     rotation_range=0.,
-                                     shear_range=0,
-                                     horizontal_flip=True,
-                                     channel_shift_range=20.,
-                                     fill_mode='constant',
-                                     label_cval=label_cval)
-    val_datagen = SegDataGenerator()
+    # train_datagen = SegDataGenerator(zoom_range=[0.5, 2.0],
+    #                                  zoom_maintain_shape=True,
+    #                                  crop_mode='random',
+    #                                  crop_size=target_size,
+    #                                  # pad_size=(505, 505),
+    #                                  rotation_range=0.,
+    #                                  shear_range=0,
+    #                                  horizontal_flip=True,
+    #                                  channel_shift_range=20.,
+    #                                  fill_mode='constant',
+    #                                  label_cval=label_cval)
+    test = SegDirectoryIterator()
+
+
+
 
     def get_file_len(file_path):
         fp = open(file_path)

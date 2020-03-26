@@ -637,6 +637,7 @@ def get_augmented_pascal_image_annotation_filename_pairs(pascal_root,
     overall_val_image_annotation_filename_pairs = \
         get_pascal_selected_image_annotation_filenames_pairs(pascal_root,
                                                              validation)
+    print("Testin!", len(validation), len(overall_val_image_annotation_filename_pairs))
 
     return (overall_train_image_annotation_filename_pairs,
             overall_val_image_annotation_filename_pairs)
@@ -712,7 +713,7 @@ def voc_config():
     combined_annotations_path = dataset_path + '/combined_annotations'
 
     # see get_augmented_pascal_image_annotation_filename_pairs()
-    voc_data_subset_mode = 2
+    voc_data_subset_mode = 1
 
 
 @data_pascal_voc.capture

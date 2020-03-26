@@ -1,4 +1,5 @@
 from tensorflow.keras.preprocessing.image import *
+from tensorflow.compat.v1.preprocessing import transform_matrix_offset_center
 from tensorflow.keras.applications.imagenet_utils import preprocess_input
 from tensorflow.keras import backend as K
 from PIL import Image
